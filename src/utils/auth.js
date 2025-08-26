@@ -20,7 +20,6 @@ export const isAuthenticated = () => {
   } catch (error) {
     return false;
   }
-  return true;
 };
 
 export const getCurrentUser = () => {

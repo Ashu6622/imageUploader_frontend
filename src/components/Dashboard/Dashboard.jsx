@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useCallback } from 'react';
 import Header from '../Common/Header';
 import Search from '../Common/Search';
 import FolderView from '../Folder/FolderView';
@@ -18,11 +18,7 @@ const Dashboard = () => {
   const [showCreateFolder, setShowCreateFolder] = useState(false);
   const [showImageUpload, setShowImageUpload] = useState(false);
 
-  useEffect(() => {
-    loadFolderContents();
-  }, [currentFolder, searchTerm]);
-
-  const loadFolderContents = async () => {
+  const loadFolderContents = useCallback(async () => {
     setLoading(true);
     try {
       const [foldersResponse, imagesResponse] = await Promise.all([
@@ -37,7 +33,11 @@ const Dashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentFolder, searchTerm]);
+
+  useEffect(() => {
+    loadFolderContents();
+  }, [loadFolderContents]);
 
   const handleFolderClick = async (folder) => {
     setCurrentFolder(folder._id);

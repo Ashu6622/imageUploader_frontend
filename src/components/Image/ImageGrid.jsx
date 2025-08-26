@@ -1,6 +1,8 @@
 import React from 'react';
 import './Image.css';
 
+const API_BASE_URL = process.env.REACT_APP_API_URL;
+
 const ImageGrid = ({ images, onDeleteImage }) => {
   if (images.length === 0) {
     return (
@@ -18,7 +20,7 @@ const ImageGrid = ({ images, onDeleteImage }) => {
           <div key={image._id} className="image-item">
             <div className="image-container">
               <img
-                src={`http://localhost:5000${image.url}`}
+                src={`API_BASE_URL${image.url}`}
                 alt={image.name}
                 className="image-thumbnail"
                 loading="lazy"
