@@ -10,4 +10,6 @@
 
 [build.environment]
   CI = "false"
+  NODE_ENV = "production"
   REACT_APP_API_URL = "https://imageuploader-backend-8uqd.onrender.com/api"
+  GENERATE_SOURCEMAP = "false"

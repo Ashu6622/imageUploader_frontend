@@ -1,7 +1,9 @@
 import React from 'react';
 import './Image.css';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL;
+// Get the base URL without /api for static files
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const STATIC_BASE_URL = API_BASE_URL.replace('/api', '');
 
 const ImageGrid = ({ images, onDeleteImage }) => {
   if (images.length === 0) {
@@ -20,10 +22,14 @@ const ImageGrid = ({ images, onDeleteImage }) => {
           <div key={image._id} className="image-item">
             <div className="image-container">
               <img
-                src={`API_BASE_URL${image.url}`}
+                src={`${STATIC_BASE_URL}${image.url}`}
                 alt={image.name}
                 className="image-thumbnail"
                 loading="lazy"
+                onError={(e) => {
+                  console.error('Image failed to load:', `${STATIC_BASE_URL}${image.url}`);
+                  e.target.style.display = 'none';
+                }}
               />
               <div className="image-overlay">
                 <button
